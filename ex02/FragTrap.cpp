@@ -3,38 +3,56 @@
 
 FragTrap::FragTrap() : ClapTrap()
 {
-	// TODO: 100 / 100 / 30 + construction message
+	_hitPoints    = 100;
+	_energyPoints = 100;
+	_attackDamage = 30;
+	std::cout << "FragTrap default constructor called" << std::endl;
 }
 
 FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
 {
-	// TODO: 100 / 100 / 30 + construction message
+	_hitPoints    = 100;
+	_energyPoints = 100;
+	_attackDamage = 30;
+	std::cout << "FragTrap " << name << " constructed" << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other)
 {
-	// TODO: message
+	std::cout << "FragTrap copy constructor called" << std::endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& other)
 {
-	// TODO: ClapTrap::operator=(other) + message
-	(void)other;
+	if (this != &other)
+		ClapTrap::operator=(other);
+	std::cout << "FragTrap assignment called" << std::endl;
 	return *this;
 }
 
 FragTrap::~FragTrap()
 {
-	// TODO: destruction message
+	std::cout << "FragTrap " << _name << " destroyed" << std::endl;
 }
 
 void FragTrap::attack(const std::string& target)
 {
-	// TODO: same rules as ClapTrap, different message
-	(void)target;
+	if (_hitPoints == 0)
+	{
+		std::cout << _name << " can't attack: no hit points" << std::endl;
+		return;
+	}
+	if (_energyPoints == 0)
+	{
+		std::cout << _name << " can't attack: no energy" << std::endl;
+		return;
+	}
+	_energyPoints -= 1;
+	std::cout << "FragTrap " << _name << " attacks " << target << ", causing "
+		<< _attackDamage << " points of damage!" << std::endl;
 }
 
 void FragTrap::highFivesGuys(void)
 {
-	// TODO: print message
+	std::cout << "FragTrap " << _name << " requests a positive high five!" << std::endl;
 }

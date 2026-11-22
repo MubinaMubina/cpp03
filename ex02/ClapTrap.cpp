@@ -3,47 +3,94 @@
 
 ClapTrap::ClapTrap()
 {
-	// TODO: default values + construction message
+	_name         = "";
+	_hitPoints    = 10;
+	_energyPoints = 10;
+	_attackDamage = 0;
+	std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string& name)
 {
-	// TODO: name, 10 / 10 / 0 + construction message
-	(void)name;
+	_name         = name;
+	_hitPoints    = 10;
+	_energyPoints = 10;
+	_attackDamage = 0;
+	std::cout << "ClapTrap " << name << " constructed" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other)
 {
-	// TODO: copy + message
-	(void)other;
+	std::cout << "ClapTrap copy constructor called" << std::endl;
+	*this = other;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 {
-	// TODO: copy assignment + message
-	(void)other;
+	if(this == &other)
+		return(*this);
+	else
+	{
+		_name = other._name;
+		_hitPoints = other._hitPoints;
+		_energyPoints = other._energyPoints;
+		_attackDamage = other._attackDamage;
+	}
+	std::cout << "ClapTrap assignment called" << std::endl;
 	return *this;
 }
 
 ClapTrap::~ClapTrap()
 {
-	// TODO: destruction message
+	std::cout << "ClapTrap " << _name << " destroyed" << std::endl;
 }
 
 void ClapTrap::attack(const std::string& target)
 {
-	// TODO: needs hit points + energy; costs 1 energy; print message
-	(void)target;
+	if (_hitPoints == 0)
+	{
+		std::cout << _name << " can't attack: no hit points" << std::endl;
+		return;
+	}
+	if (_energyPoints == 0)
+	{
+		std::cout << _name << " can't attack: no energy" << std::endl;
+		return;
+	}
+	_energyPoints -= 1;
+	std::cout << "ClapTrap " << _name << " attacks " << target << ", causing "
+		<< _attackDamage << " points of damage!" << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	// TODO: lose hit points (don't underflow); print message
-	(void)amount;
+	if (_hitPoints == 0)
+	{
+		std::cout << _name << " is already down" << std::endl;
+		return;
+	}
+	if (amount >= _hitPoints)
+		_hitPoints = 0;
+	else
+		_hitPoints -= amount;
+	std::cout << "ClapTrap " << _name << " takes " << amount << " damage, "
+		<< _hitPoints << " hit points left" << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	// TODO: needs hit points + energy; costs 1 energy; regain hit points; print message
-	(void)amount;
+	if (_hitPoints == 0)
+	{
+		std::cout << _name << " can't repair: no hit points" << std::endl;
+		return;
+	}
+	if (_energyPoints == 0)
+	{
+		std::cout << _name << " can't repair: no energy" << std::endl;
+		return;
+	}
+	_energyPoints -= 1;
+	_hitPoints += amount;
+	std::cout << "ClapTrap " << _name << " repairs itself for " << amount
+		<< ", now has " << _hitPoints << " hit points" << std::endl;
 }
