@@ -4,31 +4,38 @@
 
 int main()
 {
-	// Test 1: construction / destruction chaining
-	//   create ScavTrap s("Guard")
-	//   -> expect: ClapTrap ctor, then ScavTrap ctor ... then ScavTrap dtor, ClapTrap dtor at the end
+	std::cout << "________TEST 1_________" << std::endl;
+	ScavTrap s("Guard");
 
-	// Test 2: ScavTrap::attack override
-	//   s.attack("Target")   -> must print the "ScavTrap ..." message, damage 20
+	std::cout << "________TEST 2:_________" << std::endl;
+	s.attack("Vik");
 
-	// Test 3: guardGate
-	//   s.guardGate()
+	std::cout << "________TEST 3: _________" << std::endl;
+	s.guardGate();
 
-	// Test 4: takeDamage / beRepaired inherited from ClapTrap
-	//   s.takeDamage(30); s.beRepaired(10);
+	std::cout << "________TEST 4:_________" << std::endl;
+	s.takeDamage(30);
+	s.beRepaired(10);
 
-	// Test 5: energy exhaustion (50 energy)
-	//   loop 50 times s.attack("Target"), then once more -> "no energy"
+	std::cout << "________TEST 5:_________" << std::endl;
+	for (int i = 0; i < 50; i++)
+		s.attack("Vik");
 
-	// Test 6: hit points exhaustion
-	//   s.takeDamage(1000); then s.attack(...) and s.beRepaired(...) -> refused
+	std::cout << "________TEST 6:_________" << std::endl;
+	s.takeDamage(1000);
+	s.attack("Vik");
+	s.beRepaired(10);
 
-	// Test 7: copy constructor + assignment
-	//   ScavTrap copy(s);
-	//   ScavTrap other("Other"); other = s;
+	std::cout << "________TEST 7:_________" << std::endl;
+	ScavTrap copy(s);
+	ScavTrap other("Other");
+	other = s;
 
-	// Test 8: scoped object to see destruction order
-	//   { ScavTrap tmp("Temp"); tmp.guardGate(); }
+	std::cout << "________TEST 8:_________" << std::endl;
+	{
+		ScavTrap tmp("Temp");
+		tmp.guardGate();
+	}
 
 	return 0;
 }
